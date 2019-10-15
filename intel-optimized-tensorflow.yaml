@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: intel-optimized-tensorflow-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: intel-op-tensor
+    spec:
+      containers:
+      - name: intel-op-tensor
+        image: gcr.io/deeplearning-platform-release/tf-cpu.1-14
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: intel-optimized-tensorflow-service
+  name: intel-optimized-tensorflow-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: intel-op-tensor
