@@ -14,6 +14,8 @@ spec:
         image: gcr.io/deeplearning-platform-release/tf-cpu.1-14
         ports:
         - containerPort: 8080
+  nodeSelector:
+    feature.node.kubernetes.io/cpu-cpuid.AVX2: 'true'
 ---
 apiVersion: v1
 kind: Service
